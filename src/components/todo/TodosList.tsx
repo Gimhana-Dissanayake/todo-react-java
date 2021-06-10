@@ -1,4 +1,6 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import TodoService from "../../api/todo/TodoService";
 import AuthenticationService from "../services/AuthenticationService";
 
@@ -11,6 +13,8 @@ interface IState {
 }
 
 const TodosList = () => {
+  const history = useHistory();
+
   const [state, setState] = useState<IState[]>([]);
   const [message, setMessage] = useState("");
 
@@ -37,6 +41,22 @@ const TodosList = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const updateTodoClicked = (id: string) => {
+    // let username = AuthenticationService.getLoggedInUserName();
+    // try {
+    //   await TodoService.deleteTodo(username, id);
+    //   setMessage(`Delete of todo ${id} successful`);
+    //   refreshTodos();
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    history.push(`/todos/${id}`);
+  };
+
+  const addTodoClicked = () => {
+    history.push("/todos/-1");
   };
 
   const refreshTodos = async () => {
@@ -72,7 +92,17 @@ const TodosList = () => {
                 <td>{item.id}</td>
                 <td>{item.description}</td>
                 <td>{item.done.toString()}</td>
-                <td>{item.targetDate.toString()}</td>
+                <td>{moment(item.targetDate).format("YYYY-MM-DD")}</td>
+                <td>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => {
+                      updateTodoClicked(item.id);
+                    }}
+                  >
+                    Update
+                  </button>
+                </td>
                 <td>
                   <button
                     className="btn btn-warning"
@@ -80,13 +110,24 @@ const TodosList = () => {
                       deleteTodoClicked(item.id);
                     }}
                   >
-                    delete
+                    Delete
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className="row">
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              addTodoClicked();
+            }}
+          >
+            {" "}
+            Add
+          </button>
+        </div>
       </div>
     </div>
   );

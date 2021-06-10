@@ -11,7 +11,7 @@ const Welcome = () => {
     // const value = await HelloService.executeHelloService();
     try {
       const value = await HelloService.executeHelloPathVariableService(name);
-      console.log(value);
+
       setWelcomeMessage(value.data.message);
     } catch (e) {
       console.log(e.response);
