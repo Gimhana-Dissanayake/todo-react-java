@@ -1,4 +1,5 @@
 import { createContext, FC, useContext, useState } from "react";
+import AuthenticationService from "../services/AuthenticationService";
 
 interface IUserContext {
   isAuth: boolean;
@@ -44,12 +45,12 @@ export const UserProvider: FC = ({ children }) => {
     username: string;
     password?: string;
   }) => {
-    sessionStorage.setItem("authenticatedUser", username);
+    AuthenticationService.registerSuccessfulLogin(username, password);
     setState({ isAuth: true });
   };
 
   const logout = () => {
-    sessionStorage.removeItem("authenticatedUser");
+    AuthenticationService.logout();
     setState({ isAuth: false });
   };
 

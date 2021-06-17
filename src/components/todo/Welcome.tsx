@@ -15,7 +15,17 @@ const Welcome = () => {
       setWelcomeMessage(value.data.message);
     } catch (e) {
       console.log(e.response);
-      setWelcomeMessage(e.response.data.message);
+      let errorMessage = "";
+
+      if (e?.message) {
+        errorMessage += e.message;
+      }
+
+      if (e?.response && e.response?.data) {
+        errorMessage += e.response.data?.message;
+      }
+
+      setWelcomeMessage(errorMessage);
     }
   };
 

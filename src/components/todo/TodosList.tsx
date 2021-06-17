@@ -20,13 +20,14 @@ const TodosList = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let username = AuthenticationService.getLoggedInUserName();
+      // let username = AuthenticationService.getLoggedInUserName();
       try {
-        const value = await TodoService.retrieveAllTodo(username);
+        const value = await TodoService.retrieveAllTodo("malan");
         setState(value.data);
       } catch (e) {
-        console.log(e.response);
-        setState(e.response.data.message);
+        console.log("error");
+        console.log(e);
+        // setState(e.response.data.message);
       }
     }
     fetchData();

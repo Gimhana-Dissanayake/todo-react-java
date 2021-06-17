@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import AuthenticationService from "../services/AuthenticationService";
 
 const Login = () => {
   const [state, setState] = useState({
@@ -45,16 +46,25 @@ const Login = () => {
         <button
           className="btn btn-success"
           onClick={() => {
-            if (state.username === "saman" && state.password === "pass") {
-              login({ username: state.username });
-              updatePreviousSt({ showSuccessMsg: true, hasLoginFailed: false });
-            } else {
-              setState((pS) => ({
-                ...pS,
-                showSuccessMsg: false,
-                hasLoginFailed: true,
-              }));
-            }
+            AuthenticationService.executeBasicAuthenticationService(
+              state.username,
+              state.password
+            )
+              .then(() => {
+                login({ username: state.username, password: state.password });
+
+                updatePreviousSt({
+                  showSuccessMsg: true,
+                  hasLoginFailed: false,
+                });
+              })
+              .catch(() => {
+                setState((pS) => ({
+                  ...pS,
+                  showSuccessMsg: false,
+                  hasLoginFailed: true,
+                }));
+              });
           }}
         >
           Login

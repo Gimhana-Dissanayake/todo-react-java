@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 
 const Header = () => {
-  const { isAuth: isUserLoggedIn, logout } = useUser();
+  const { isAuth, logout } = useUser();
 
   return (
     <>
@@ -15,14 +15,14 @@ const Header = () => {
             </a>
           </div>
           <ul className="navbar-nav">
-            {isUserLoggedIn && (
+            {isAuth && (
               <li>
                 <Link className="nav-link" to="/welcome/saman">
                   Home
                 </Link>
               </li>
             )}
-            {isUserLoggedIn && (
+            {isAuth && (
               <li>
                 <Link className="nav-link" to="/todos">
                   Todos
@@ -31,14 +31,14 @@ const Header = () => {
             )}
           </ul>
           <ul className="navbar-nav navbar-collapse justify-content-end">
-            {!isUserLoggedIn && (
+            {!isAuth && (
               <li>
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
               </li>
             )}
-            {isUserLoggedIn && (
+            {isAuth && (
               <li>
                 <Link className="nav-link" to="/logout" onClick={logout}>
                   Logout
