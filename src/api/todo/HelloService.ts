@@ -1,17 +1,18 @@
 import axios from "axios";
+import { API_URL } from "../../components/consts/Consts";
 
 class HelloService {
   executeHelloService() {
-    return axios.get("http://localhost:8080/hello");
+    return axios.get(`${API_URL}/hello`);
   }
   executeHelloBeanService() {
-    return axios.get("http://localhost:8080/hello-bean");
+    return axios.get(`${API_URL}/hello-bean`);
   }
   executeHelloPathVariableService(name: string) {
-    return axios.get(`http://localhost:8080/hello-bean/path-variable/${name}`);
+    return axios.get(`${API_URL}/hello-bean/path-variable/${name}`);
   }
   executeHelloErrorService() {
-    return axios.get("http://localhost:8080/hello-error");
+    return axios.get(`${API_URL}/hello-error`);
   }
 }
 

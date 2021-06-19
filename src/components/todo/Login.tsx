@@ -46,12 +46,35 @@ const Login = () => {
         <button
           className="btn btn-success"
           onClick={() => {
-            AuthenticationService.executeBasicAuthenticationService(
+            //   AuthenticationService.executeBasicAuthenticationService(
+            //     state.username,
+            //     state.password
+            //   )
+            //     .then(() => {
+            //       login({ username: state.username, password: state.password });
+
+            //       updatePreviousSt({
+            //         showSuccessMsg: true,
+            //         hasLoginFailed: false,
+            //       });
+            //     })
+            //     .catch(() => {
+            //       setState((pS) => ({
+            //         ...pS,
+            //         showSuccessMsg: false,
+            //         hasLoginFailed: true,
+            //       }));
+            //     });
+            // }
+
+            AuthenticationService.executeJwtAuthenticationService(
               state.username,
               state.password
             )
-              .then(() => {
-                login({ username: state.username, password: state.password });
+              .then((response) => {
+                console.log(response);
+
+                login({ username: state.username, token: response.data.token });
 
                 updatePreviousSt({
                   showSuccessMsg: true,

@@ -3,25 +3,13 @@ import AuthenticationService from "../services/AuthenticationService";
 
 interface IUserContext {
   isAuth: boolean;
-  login: ({
-    username,
-    password,
-  }: {
-    username: string;
-    password?: string;
-  }) => void;
+  login: ({ username, token }: { username: string; token?: string }) => void;
   logout: () => void;
 }
 
 const initialContext: IUserContext = {
   isAuth: false,
-  login: ({
-    username,
-    password,
-  }: {
-    username: string;
-    password?: string;
-  }) => {},
+  login: ({ username, token }: { username: string; token?: string }) => {},
   logout: () => {},
 };
 
@@ -38,14 +26,8 @@ const UserContext = createContext<IUserContext>(initialContext);
 export const UserProvider: FC = ({ children }) => {
   const [state, setState] = useState(initialState);
 
-  const login = ({
-    username,
-    password,
-  }: {
-    username: string;
-    password?: string;
-  }) => {
-    AuthenticationService.registerSuccessfulLogin(username, password);
+  const login = ({ username, token }: { username: string; token?: string }) => {
+    AuthenticationService.registerSuccessfulLogin(username, token);
     setState({ isAuth: true });
   };
 

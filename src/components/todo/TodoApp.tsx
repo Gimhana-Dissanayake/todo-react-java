@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { UserProvider } from "../context/UserContext";
+import Register from "../user/Register";
 import AuthenticatedRoute from "./AuthenticatedRoute";
 import ErrorComponent from "./ErrorComponent";
 import Footer from "./Footer";
@@ -19,6 +20,7 @@ const TodoApp = () => {
           <Header />
           <Switch>
             <Route exact path={["/", "/login"]} component={Login} />
+            <Route path={"/register"} component={Register} />
             <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
             <AuthenticatedRoute path="/todos/:id" component={Todo} />
             <AuthenticatedRoute path="/todos" component={TodosList} />
