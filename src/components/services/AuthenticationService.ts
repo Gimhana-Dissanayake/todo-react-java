@@ -10,10 +10,15 @@ class AuthenticationService {
     });
   }
 
-  executeJwtAuthenticationService(username: string, password: string) {
+  executeJwtAuthenticationService(
+    username: string,
+    password: string,
+    role: string
+  ) {
     return axios.post(`${API_URL}/authenticate`, {
       username,
       password,
+      role,
     });
   }
 

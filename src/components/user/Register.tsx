@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { API_URL } from "../consts/Consts";
 
 const Register = () => {
   const [state, setState] = useState({ username: "", password: "" });
@@ -7,10 +9,21 @@ const Register = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    axios
+      .post(`${API_URL}/register`, {
+        id: null,
+        username: state.username,
+        password: state.password,
+      })
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((e: any) => {});
+  };
 
   return (
-    <form>
+    <div>
       <div>
         <label>Username</label>
         <input
@@ -27,8 +40,8 @@ const Register = () => {
           onChange={onInputChange}
         />
       </div>
-      <button onClick={onSubmit}></button>
-    </form>
+      <button onClick={onSubmit}>Register</button>
+    </div>
   );
 };
 

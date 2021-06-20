@@ -69,7 +69,8 @@ const Login = () => {
 
             AuthenticationService.executeJwtAuthenticationService(
               state.username,
-              state.password
+              state.password,
+              "ROLE_USER_2"
             )
               .then((response) => {
                 console.log(response);
